@@ -8,7 +8,7 @@ pool:
 
 variables:
   solution: 'src/Eto.sln'
-  buildPlatform: 'Any CPU'
+  buildPlatform: 'Windows'
   buildConfiguration: 'Release'
 
 steps:
