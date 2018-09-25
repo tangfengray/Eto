@@ -12,4 +12,7 @@ jobs:
     vmImage: 'VS2017-Win2016'
   
   steps:
-  - script: build.cmd
+  - task: msbuild@1
+    inputs: 
+      solution: build/Build.proj
+      msbuildArguments: /t:Package /p:BuildVersion=$1
