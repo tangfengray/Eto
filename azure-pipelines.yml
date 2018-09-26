@@ -10,10 +10,12 @@ jobs:
   
   steps:
   - task: msbuild@1
+    displayName: Build and Package
     inputs: 
       solution: build/Build.proj
       msbuildArguments: $(build.arguments)
   - task: CopyFiles@2
+    displayName: Copy XamMac nupkg
     inputs:
       contents: artifacts/nuget/$(build.configuration)/Eto.Platform.XamMac*.nupkg
       targetFolder: $(Build.ArtifactStagingDirectory)
@@ -30,34 +32,41 @@ jobs:
   steps:
   - script: cinst gtksharp -y
   - task: msbuild@1
+    displayName: Build and Package
     inputs: 
       solution: build/Build.proj
       msbuildArguments: $(build.arguments)
   - task: CopyFiles@2
+    displayName: Copy nupkg
     inputs:
       contents: artifacts/nuget/$(build.configuration)/*.nupkg
       targetFolder: $(Build.ArtifactStagingDirectory)
   - task: PublishBuildArtifacts@1
+    displayName: Publish nupkg
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts/nuget' 
       artifactName: 'nuget' 
       publishLocation: 'Azure Artifacts/TFS'
 
   - task: CopyFiles@2
+    displayName: Copy tests
     inputs:
       contents: artifacts/test/**/*
       targetFolder: $(Build.ArtifactStagingDirectory)
   - task: PublishBuildArtifacts@1
+    displayName: Publish tests
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts/test'
       artifactName: 'test' 
       publishLocation: 'Azure Artifacts/TFS'
 
   - task: CopyFiles@2
+    displayName: Copy samples
     inputs:
       contents: artifacts/samples/**/*
       targetFolder: $(Build.ArtifactStagingDirectory)
   - task: PublishBuildArtifacts@1
+    displayName: Publish samples
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts/samples'
       artifactName: 'samples'
