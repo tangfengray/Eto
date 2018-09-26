@@ -1,6 +1,7 @@
 
 jobs:
 - job:
+  name: Mac
   pool:
     vmImage: 'macOS-10.13'
   
@@ -8,6 +9,7 @@ jobs:
   - script: ./build.sh
   
 - job:
+  name: Windows
   pool:
     vmImage: 'VS2017-Win2016'
   
