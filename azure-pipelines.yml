@@ -1,5 +1,7 @@
 variables:
   build.version: 2.5.0-ci.$(Build.BuildId)
+  build.configuration: Release
+  build.arguments: /t:Package /p:Configuration=$(build.configuration) /p:BuildVersion=$(build.version)
 
 jobs:
 - job: Mac
@@ -10,7 +12,11 @@ jobs:
   - task: msbuild@1
     inputs: 
       solution: build/Build.proj
-      msbuildArguments: /t:Package /p:BuildVersion=$(build.version)
+      msbuildArguments: $(build.arguments)
+  - task: CopyFiles@2
+    inputs:
+      contents: artifacts\nuget\$(build.configuration)\Eto.Platform.XamMac*.nupkg
+      targetFolder: $(Build.ArtifactStagingDirectory)
   
 - job: Windows
   pool:
@@ -21,4 +27,8 @@ jobs:
   - task: msbuild@1
     inputs: 
       solution: build/Build.proj
-      msbuildArguments: /t:Package /p:BuildVersion=$(build.version)
+      msbuildArguments: $(build.arguments)
+  - task: CopyFiles@2
+    inputs:
+      contents: artifacts\nuget\$(build.configuration)\*.nupkg
+      targetFolder: $(Build.ArtifactStagingDirectory)
