@@ -16,11 +16,10 @@ jobs:
   - task: CopyFiles@2
     inputs:
       contents: artifacts/nuget/$(build.configuration)/Eto.Platform.XamMac*.nupkg
-      targetFolder: $(Build.ArtifactStagingDirectory)/nuget
-      flattenFolders: true
+      targetFolder: $(Build.ArtifactStagingDirectory)
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: '$(Build.ArtifactStagingDirectory)/nuget'
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts/nuget'
       artifactName: 'nuget' 
       publishLocation: 'Azure Artifacts/TFS'
     
@@ -37,32 +36,29 @@ jobs:
   - task: CopyFiles@2
     inputs:
       contents: artifacts/nuget/$(build.configuration)/*.nupkg
-      targetFolder: $(Build.ArtifactStagingDirectory)/nuget
-      flattenFolders: true
+      targetFolder: $(Build.ArtifactStagingDirectory)
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: '$(Build.ArtifactStagingDirectory)/nuget' 
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts/nuget' 
       artifactName: 'nuget' 
       publishLocation: 'Azure Artifacts/TFS'
 
   - task: CopyFiles@2
     inputs:
       contents: artifacts/test/**/*
-      targetFolder: $(Build.ArtifactStagingDirectory)/test
-      flattenFolders: true
+      targetFolder: $(Build.ArtifactStagingDirectory)
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: '$(Build.ArtifactStagingDirectory)/test'
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts/test'
       artifactName: 'test' 
       publishLocation: 'Azure Artifacts/TFS'
 
   - task: CopyFiles@2
     inputs:
       contents: artifacts/samples/**/*
-      targetFolder: $(Build.ArtifactStagingDirectory)/samples
-      flattenFolders: true
+      targetFolder: $(Build.ArtifactStagingDirectory)
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: '$(Build.ArtifactStagingDirectory)/samples'
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts/samples'
       artifactName: 'samples'
       publishLocation: 'Azure Artifacts/TFS'
