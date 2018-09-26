@@ -15,4 +15,4 @@ jobs:
   - task: msbuild@1
     inputs: 
       solution: build/Build.proj
-      msbuildArguments: /t:Package /p:BuildVersion=$1
+      msbuildArguments: /t:Package /p:BuildVersion=2.5.0-ci.$(BuildID)
