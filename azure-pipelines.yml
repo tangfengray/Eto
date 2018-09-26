@@ -16,8 +16,13 @@ jobs:
   - task: CopyFiles@2
     inputs:
       contents: artifacts/nuget/$(build.configuration)/Eto.Platform.XamMac*.nupkg
-      targetFolder: $(Build.ArtifactStagingDirectory)
+      targetFolder: $(Build.ArtifactStagingDirectory)/nuget
+      flattenFolders: true
   - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/nuget'
+      artifactName: 'nuget' 
+      publishLocation: 'Azure Artifacts/TFS'
     
 - job: Windows
   pool:
@@ -32,5 +37,32 @@ jobs:
   - task: CopyFiles@2
     inputs:
       contents: artifacts/nuget/$(build.configuration)/*.nupkg
-      targetFolder: $(Build.ArtifactStagingDirectory)
+      targetFolder: $(Build.ArtifactStagingDirectory)/nuget
+      flattenFolders: true
   - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/nuget' 
+      artifactName: 'nuget' 
+      publishLocation: 'Azure Artifacts/TFS'
+
+  - task: CopyFiles@2
+    inputs:
+      contents: artifacts/test/**/*
+      targetFolder: $(Build.ArtifactStagingDirectory)/test
+      flattenFolders: true
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/test'
+      artifactName: 'test' 
+      publishLocation: 'Azure Artifacts/TFS'
+
+  - task: CopyFiles@2
+    inputs:
+      contents: artifacts/samples/**/*
+      targetFolder: $(Build.ArtifactStagingDirectory)/samples
+      flattenFolders: true
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/samples'
+      artifactName: 'samples'
+      publishLocation: 'Azure Artifacts/TFS'
