@@ -17,7 +17,8 @@ jobs:
     inputs:
       contents: artifacts\nuget\$(build.configuration)\Eto.Platform.XamMac*.nupkg
       targetFolder: $(Build.ArtifactStagingDirectory)
-  
+  - task: PublishBuildArtifacts@1
+    
 - job: Windows
   pool:
     vmImage: 'VS2017-Win2016'
@@ -32,3 +33,4 @@ jobs:
     inputs:
       contents: artifacts\nuget\$(build.configuration)\*.nupkg
       targetFolder: $(Build.ArtifactStagingDirectory)
+  - task: PublishBuildArtifacts@1
