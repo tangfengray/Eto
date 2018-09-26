@@ -15,7 +15,7 @@ jobs:
       msbuildArguments: $(build.arguments)
   - task: CopyFiles@2
     inputs:
-      contents: artifacts\nuget\$(build.configuration)\Eto.Platform.XamMac*.nupkg
+      contents: artifacts/nuget/$(build.configuration)/Eto.Platform.XamMac*.nupkg
       targetFolder: $(Build.ArtifactStagingDirectory)
   - task: PublishBuildArtifacts@1
     
@@ -31,6 +31,6 @@ jobs:
       msbuildArguments: $(build.arguments)
   - task: CopyFiles@2
     inputs:
-      contents: artifacts\nuget\$(build.configuration)\*.nupkg
+      contents: artifacts/nuget/$(build.configuration)/*.nupkg
       targetFolder: $(Build.ArtifactStagingDirectory)
   - task: PublishBuildArtifacts@1
