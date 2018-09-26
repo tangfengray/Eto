@@ -1,3 +1,5 @@
+variables:
+  build.version: 2.5.0-ci.$(Build.BuildId)
 
 jobs:
 - job: Mac
@@ -8,7 +10,7 @@ jobs:
   - task: msbuild@1
     inputs: 
       solution: build/Build.proj
-      msbuildArguments: /t:Package /p:BuildVersion=2.5.0-ci.$(BuildID)
+      msbuildArguments: /t:Package /p:BuildVersion=$(build.version)
   
 - job: Windows
   pool:
@@ -19,4 +21,4 @@ jobs:
   - task: msbuild@1
     inputs: 
       solution: build/Build.proj
-      msbuildArguments: /t:Package /p:BuildVersion=2.5.0-ci.$(BuildID)
+      msbuildArguments: /t:Package /p:BuildVersion=$(build.version)
