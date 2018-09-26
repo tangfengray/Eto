@@ -18,15 +18,10 @@ jobs:
     inputs: 
       solution: build/Build.proj
       msbuildArguments: $(build.arguments)
-  - task: CopyFiles@2
-    displayName: Copy XamMac nupkg
-    inputs:
-      contents: artifacts/nuget/$(build.configuration)/Eto.Platform.XamMac*.nupkg
-      targetFolder: $(Build.ArtifactStagingDirectory)
   - task: PublishBuildArtifacts@1
     displayName: Publish XamMac nupkg
     inputs:
-      pathtoPublish: $(Build.ArtifactStagingDirectory)/artifacts/nuget/$(build.configuration)/
+      pathtoPublish: artifacts/nuget/$(build.configuration)/Eto.Platform.XamMac*.nupkg
       artifactName: nuget'
       publishLocation: 'Azure Artifacts/TFS'
     
@@ -43,37 +38,21 @@ jobs:
       solution: build/Build.proj
       msbuildArguments: $(build.arguments)
 
-  - task: CopyFiles@2
-    displayName: Copy nupkg
-    inputs:
-      contents: artifacts/nuget/$(build.configuration)/*.nupkg
-      targetFolder: $(Build.ArtifactStagingDirectory)
-  - task: CopyFiles@2
-    displayName: Copy tests
-    inputs:
-      contents: artifacts/test/**/*
-      targetFolder: $(Build.ArtifactStagingDirectory)
-  - task: CopyFiles@2
-    displayName: Copy samples
-    inputs:
-      contents: artifacts/samples/**/*
-      targetFolder: $(Build.ArtifactStagingDirectory)
-
   - task: PublishBuildArtifacts@1
     displayName: Publish nupkg
     inputs:
-      pathtoPublish: $(Build.ArtifactStagingDirectory)/artifacts/nuget/$(build.configuration)/
+      pathtoPublish: artifacts/nuget/$(build.configuration)/*.nupkg
       artifactName: nuget
       publishLocation: 'Azure Artifacts/TFS'
   - task: PublishBuildArtifacts@1
     displayName: Publish tests
     inputs:
-      pathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts/test'
+      pathtoPublish: artifacts/test/$(build.configuration)/**/*
       artifactName: test
       publishLocation: 'Azure Artifacts/TFS'
   - task: PublishBuildArtifacts@1
     displayName: Publish samples
     inputs:
-      pathtoPublish: $(Build.ArtifactStagingDirectory)/artifacts/samples/$(build.configuration)/
+      pathtoPublish: artifacts/samples/$(build.configuration)/**/*
       artifactName: samples
       publishLocation: 'Azure Artifacts/TFS'
