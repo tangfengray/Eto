@@ -1,19 +1,21 @@
 
 jobs:
-- job:
-  displayName: Mac
+- job: Mac
   pool:
     vmImage: 'macOS-10.13'
   
   steps:
-  - script: ./build.sh
+  - task: msbuild@1
+    inputs: 
+      solution: build/Build.proj
+      msbuildArguments: /t:Package /p:BuildVersion=2.5.0-ci.$(BuildID)
   
-- job:
-  displayName: Windows
+- job: Windows
   pool:
     vmImage: 'VS2017-Win2016'
   
   steps:
+  - script: cinst gtksharp -y
   - task: msbuild@1
     inputs: 
       solution: build/Build.proj
