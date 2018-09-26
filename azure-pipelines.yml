@@ -18,10 +18,16 @@ jobs:
     inputs: 
       solution: build/Build.proj
       msbuildArguments: $(build.arguments)
+
+  - task: CopyFiles@2
+    displayName: Copy nupkg
+    inputs:
+      contents: artifacts/nuget/$(build.configuration)/Eto.Platform.XamMac*.nupkg
+      targetFolder: $(Build.ArtifactStagingDirectory)
   - task: PublishBuildArtifacts@1
     displayName: Publish XamMac nupkg
     inputs:
-      pathtoPublish: artifacts/nuget/$(build.configuration)/Eto.Platform.XamMac*.nupkg
+      pathtoPublish: $(Build.ArtifactStagingDirectory)/artifacts/nuget/$(build.configuration)
       artifactName: nuget'
       publishLocation: 'Azure Artifacts/TFS'
     
@@ -41,18 +47,18 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: Publish nupkg
     inputs:
-      pathtoPublish: artifacts/nuget/$(build.configuration)/*.nupkg
+      pathtoPublish: artifacts/nuget/$(build.configuration)
       artifactName: nuget
       publishLocation: 'Azure Artifacts/TFS'
   - task: PublishBuildArtifacts@1
     displayName: Publish tests
     inputs:
-      pathtoPublish: artifacts/test/$(build.configuration)/**/*
+      pathtoPublish: artifacts/test/$(build.configuration)
       artifactName: test
       publishLocation: 'Azure Artifacts/TFS'
   - task: PublishBuildArtifacts@1
     displayName: Publish samples
     inputs:
-      pathtoPublish: artifacts/samples/$(build.configuration)/**/*
+      pathtoPublish: artifacts/samples/$(build.configuration)
       artifactName: samples
       publishLocation: 'Azure Artifacts/TFS'
